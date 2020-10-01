@@ -1,8 +1,8 @@
 import React from 'react';
-import Greeting from '../greeting/greeting';
+import Welcome from '../welcome/welcome';
 import PropTypes from 'prop-types';
 
-const App = ({attempts}) => <Greeting attempts = {attempts} />;
+const App = ({attempts}) => <Welcome attempts = {attempts} />;
 
 App.propTypes = {
   attempts: PropTypes.number.isRequired

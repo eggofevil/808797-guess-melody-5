@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Greeting = ({attempts}) => {
+const Welcome = ({attempts}) => {
   return (
     <div>
       <h1>Hello stranger!</h1>
@@ -10,8 +10,8 @@ const Greeting = ({attempts}) => {
   );
 };
 
-Greeting.propTypes = {
+Welcome.propTypes = {
   attempts: PropTypes.number.isRequired
 };
 
-export default Greeting;
+export default Welcome;
