@@ -11,8 +11,11 @@ parserOptions:
   ecmaVersion: 6
   sourceType: module
 
-plugins: ['react']
+plugins: ['react', 'json']
 
 settings:
   react:
     version: '16'
+
+rules:
+  indent: [error, 2]
