@@ -1,16 +1,30 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-class GameGenre extends React.PureComponent {
+class GameGenre extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       answers: [false, false, false, false]
     };
-    // this.handleChange = this.handleChange.bind(this);
-    console.log(this.props);
   }
 
+  componentDidMount() {
+    const question1 = document.getElementById(`answer-1`);
+    console.log(question1.checked);
+  }
+  /*
+  handleChange(evt, i) {
+    evt.preventDefault();
+    this.setState((state) => {
+      let newAnswers = state.answers;
+      newAnswers[i] = !newAnswers[i];
+      return {answers: newAnswers};
+    });
+    console.log(i, this.state.answers);
+    console.log(evt.target.checked);
+  }
+  */
 
 
   /*
@@ -23,9 +37,6 @@ class GameGenre extends React.PureComponent {
   */
 
   render() {
-    const {onAnswer, question} = this.props;
-    const {answers: userAnswers} = this.state;
-    const {answers, genre} = question;
     return (
       <section className="game game--genre">
         <header className="game__header">
@@ -43,16 +54,16 @@ class GameGenre extends React.PureComponent {
           </div>
         </header>
         <section className="game__screen">
-          <h2 className="game__title">Выберите {genre} треки</h2>
+          <h2 className="game__title">Выберите {this.props.question.qenre} треки</h2>
           <form className="game__tracks">
-            {answers.map((answer, i) => (
-              <div key={`${i}-${answers.src}`} className="track">
+            {this.props.question.answers.map((answer, i) => (
+              <div key={`${i}-${this.props.question.answers.src}`} className="track">
                 <button className="track__button track__button--play" type="button" />
                 <div className="track__status">
                   <audio />
                 </div>
                 <div className="game__answer">
-                  {/*}<input
+                  {/* }<input
                     className="game__input visually-hidden"
                     type="checkbox"
                     name="answer"
@@ -68,9 +79,14 @@ class GameGenre extends React.PureComponent {
                     value={`answer-${i}`}
                     id={`answer-${i}`}
                     checked={this.state.answers[i]}
-                    onChange={(evt) => (console.log(evt.target.checked))}
+                    onChange={(evt) => {
+                      this.setState((state) => {
+                        let newAnswers = state.answers;
+                        newAnswers[i] = !newAnswers[i];
+                        return {answers: newAnswers};
+                      });
+                    }}
                   />
-
                   <label className="game__check" htmlFor={`answer-${i}`}>Отметить</label>
                 </div>
               </div>
