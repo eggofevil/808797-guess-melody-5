@@ -4,8 +4,6 @@ import {BrowserRouter, Switch, Route} from 'react-router-dom';
 import Welcome from '../welcome/welcome';
 import SignIn from '../sign-in/sign-in';
 import Game from '../game/game';
-import GameArtist from '../game-artist/game-artist';
-import GameGenre from '../game-genre/game-genre';
 import Result from '../result/result';
 import GameOver from '../game-over/game-over';
 
@@ -21,12 +19,6 @@ const App = ({attempts, questions}) => {
         </Route>
         <Route exact path='/game'>
           <Game questions={questions} />
-        </Route>
-        <Route exact path='/dev-artist'>
-          <GameArtist />
-        </Route>
-        <Route exact path='/dev-genre'>
-          <GameGenre />
         </Route>
         <Route exact path='/result'>
           <Result />

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Redirect from 'react-router-dom';
+import {Redirect} from 'react-router-dom';
 import GameGenre from '../game-genre/game-genre';
 import GameArtist from '../game-artist/game-artist';
 
@@ -11,8 +11,8 @@ class Game extends React.PureComponent {
       step: 0
     };
     const onAnswer = () => {
-      this.setState((prevState) => ({
-        step: prevState.step + 1
+      this.setState((state) => ({
+        step: state.step + 1
       }));
     };
     this.onAnswer = onAnswer.bind(this);

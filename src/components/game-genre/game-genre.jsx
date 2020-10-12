@@ -7,34 +7,22 @@ class GameGenre extends React.Component {
     this.state = {
       answers: [false, false, false, false]
     };
+    this.handleSubmit = this.handleSubmit.bind(this);
+    // this.handleChange = this.handleChange.bind(this);
   }
 
-  componentDidMount() {
-    const question1 = document.getElementById(`answer-1`);
-    console.log(question1.checked);
-  }
-  /*
-  handleChange(evt, i) {
-    evt.preventDefault();
+  handleChange(i) {
     this.setState((state) => {
       let newAnswers = state.answers;
       newAnswers[i] = !newAnswers[i];
       return {answers: newAnswers};
     });
-    console.log(i, this.state.answers);
-    console.log(evt.target.checked);
   }
-  */
 
-
-  /*
-  handleChange(i, evt) {
-    let newAnswers = this.state.answers;
-    newAnswers[i] = evt.target.checked;
-    this.setState(() => ({answers: newAnswers}));
-    console.log(evt.target.checked);
+  handleSubmit(evt) {
+    evt.preventDefault();
+    this.props.onAnswer(this.props.question, this.state.answers);
   }
-  */
 
   render() {
     return (
@@ -54,8 +42,8 @@ class GameGenre extends React.Component {
           </div>
         </header>
         <section className="game__screen">
-          <h2 className="game__title">Выберите {this.props.question.qenre} треки</h2>
-          <form className="game__tracks">
+          <h2 className="game__title">Выберите {this.props.question.genre} треки</h2>
+          <form className="game__tracks" onSubmit = {this.handleSubmit}>
             {this.props.question.answers.map((answer, i) => (
               <div key={`${i}-${this.props.question.answers.src}`} className="track">
                 <button className="track__button track__button--play" type="button" />
@@ -63,15 +51,6 @@ class GameGenre extends React.Component {
                   <audio />
                 </div>
                 <div className="game__answer">
-                  {/* }<input
-                    className="game__input visually-hidden"
-                    type="checkbox"
-                    name="answer"
-                    value={`answer-${i}`}
-                    id={`answer-${i}`}
-                    checked={userAnswers[i]}
-                    onChange={(evt) => this.handleChange(i, evt)}
-                  />*/}
                   <input
                     className="game__input visually-hidden"
                     type="checkbox"
@@ -79,13 +58,7 @@ class GameGenre extends React.Component {
                     value={`answer-${i}`}
                     id={`answer-${i}`}
                     checked={this.state.answers[i]}
-                    onChange={(evt) => {
-                      this.setState((state) => {
-                        let newAnswers = state.answers;
-                        newAnswers[i] = !newAnswers[i];
-                        return {answers: newAnswers};
-                      });
-                    }}
+                    onChange={() => (this.handleChange(i))}
                   />
                   <label className="game__check" htmlFor={`answer-${i}`}>Отметить</label>
                 </div>
