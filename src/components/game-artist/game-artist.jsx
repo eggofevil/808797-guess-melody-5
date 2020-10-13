@@ -4,10 +4,8 @@ import PropTypes from 'prop-types';
 class GameArtist extends React.PureComponent {
   constructor(props) {
     super(props);
-    this.state = {
-      answers: [false, false, false]
-    };
   }
+
   render() {
     return (
       <section className="game game--artist">
@@ -37,8 +35,15 @@ class GameArtist extends React.PureComponent {
           </div>
           <form className="game__artist">
             {this.props.question.answers.map((answer, i) => (
-              <div key={`answer-${i}`} className="artist">
-                <input className="artist__input visually-hidden" type="radio" name="answer" defaultValue={`artist-${i}`} id={`answer-${i}`} />
+              <div key={`answer-${i}-key`} className="artist">
+                <input
+                  className="artist__input visually-hidden"
+                  type="radio"
+                  name="answer"
+                  defaultValue={answer.artist}
+                  id={`answer-${i}`}
+                  onChange={() => (this.props.onAnswer(this.props.question, event.target.value))}
+                />
                 <label className="artist__name" htmlFor={`answer-${i}`}>
                   <img className="artist__picture" src={answer.picture} alt={answer.artist} />
                   {answer.artist}

@@ -8,8 +8,9 @@ class GameGenre extends React.Component {
       userAnswers: [false, false, false, false]
     };
     this._handleSubmit = this._handleSubmit.bind(this);
-    // this.handleChange = this.handleChange.bind(this);
+    // this.handleChange = this.handleChange.bind(this); // Почечу при записи обработчика в JSX в виде {()=>(handleSomething())} не требуется bind???
   }
+
   _handleChange(i) {
     this.setState((currentState) => {
       let newAnswers = currentState.userAnswers;
@@ -18,16 +19,9 @@ class GameGenre extends React.Component {
     });
   }
 
-  _evaluateUserAnswers(question, userAnswers) {
-    let result = question.answers.every((answer, i) => ((answer.genre === question.genre) === userAnswers[i]));
-    console.log(userAnswers);
-    console.log(result);
-    return (null);
-  }
-
   _handleSubmit(evt) {
     evt.preventDefault();
-    this._evaluateUserAnswers(this.props.question, this.state.userAnswers);
+    this.props.onAnswer(this.props.question, this.state.userAnswers);
   }
 
   render() {
@@ -49,10 +43,10 @@ class GameGenre extends React.Component {
         </header>
         <section className="game__screen">
           <h2 className="game__title">Выберите {this.props.question.genre} треки</h2>
-          <form className="game__tracks" onSubmit = {this._handleSubmit}>
+          <form className="game__tracks" onSubmit={this._handleSubmit}>
             {this.props.question.answers.map((answer, i) => {
               return (
-                <div key={`answer-${i}`} className="track">
+                <div key={`answer-${i}-key`} className="track">
                   <button className="track__button track__button--play" type="button" />
                   <div className="track__status">
                     <audio src={`${answer.src}`} />
