@@ -5,23 +5,29 @@ class GameGenre extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      answers: [false, false, false, false]
+      userAnswers: [false, false, false, false]
     };
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this._handleSubmit = this._handleSubmit.bind(this);
     // this.handleChange = this.handleChange.bind(this);
   }
-
-  handleChange(i) {
-    this.setState((state) => {
-      let newAnswers = state.answers;
+  _handleChange(i) {
+    this.setState((currentState) => {
+      let newAnswers = currentState.userAnswers;
       newAnswers[i] = !newAnswers[i];
-      return {answers: newAnswers};
+      return {userAnswers: newAnswers};
     });
   }
 
-  handleSubmit(evt) {
+  _evaluateUserAnswers(question, userAnswers) {
+    let result = question.answers.every((answer, i) => ((answer.genre === question.genre) === userAnswers[i]));
+    console.log(userAnswers);
+    console.log(result);
+    return (null);
+  }
+
+  _handleSubmit(evt) {
     evt.preventDefault();
-    this.props.onAnswer(this.props.question, this.state.answers);
+    this._evaluateUserAnswers(this.props.question, this.state.userAnswers);
   }
 
   render() {
@@ -43,27 +49,29 @@ class GameGenre extends React.Component {
         </header>
         <section className="game__screen">
           <h2 className="game__title">Выберите {this.props.question.genre} треки</h2>
-          <form className="game__tracks" onSubmit = {this.handleSubmit}>
-            {this.props.question.answers.map((answer, i) => (
-              <div key={`${i}-${this.props.question.answers.src}`} className="track">
-                <button className="track__button track__button--play" type="button" />
-                <div className="track__status">
-                  <audio />
+          <form className="game__tracks" onSubmit = {this._handleSubmit}>
+            {this.props.question.answers.map((answer, i) => {
+              return (
+                <div key={`answer-${i}`} className="track">
+                  <button className="track__button track__button--play" type="button" />
+                  <div className="track__status">
+                    <audio src={`${answer.src}`} />
+                  </div>
+                  <div className="game__answer">
+                    <input
+                      className="game__input visually-hidden"
+                      type="checkbox"
+                      name="answer"
+                      value={`answer-${i}`}
+                      id={`answer-${i}`}
+                      checked={this.state.userAnswers[i]}
+                      onChange={() => (this._handleChange(i))}
+                    />
+                    <label className="game__check" htmlFor={`answer-${i}`}>Отметить</label>
+                  </div>
                 </div>
-                <div className="game__answer">
-                  <input
-                    className="game__input visually-hidden"
-                    type="checkbox"
-                    name="answer"
-                    value={`answer-${i}`}
-                    id={`answer-${i}`}
-                    checked={this.state.answers[i]}
-                    onChange={() => (this.handleChange(i))}
-                  />
-                  <label className="game__check" htmlFor={`answer-${i}`}>Отметить</label>
-                </div>
-              </div>
-            ))}
+              );
+            })}
             <button className="game__submit button" type="submit">Ответить</button>
           </form>
         </section>
