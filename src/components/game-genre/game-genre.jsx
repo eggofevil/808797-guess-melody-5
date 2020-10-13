@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-class GameGenre extends React.PureComponent {
+class GameGenre extends React.Component { // почему не могу использовать PureComponent???
   constructor(props) {
     super(props);
     this.state = {
