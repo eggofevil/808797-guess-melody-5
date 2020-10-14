@@ -1,6 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-const GameArtist = () => {
+const GameArtist = ({question, onAnswer}) => {
   return (
     <section className="game game--artist">
       <header className="game__header">
@@ -23,36 +24,47 @@ const GameArtist = () => {
           <div className="track">
             <button className="track__button track__button--play" type="button" />
             <div className="track__status">
-              <audio />
+              <audio src={question.song.src}/>
             </div>
           </div>
         </div>
         <form className="game__artist">
-          <div className="artist">
-            <input className="artist__input visually-hidden" type="radio" name="answer" defaultValue="artist-1" id="answer-1" />
-            <label className="artist__name" htmlFor="answer-1">
-              <img className="artist__picture" src="img/placeholder.jpg" alt="Пелагея" />
-              Пелагея
-            </label>
-          </div>
-          <div className="artist">
-            <input className="artist__input visually-hidden" type="radio" name="answer" defaultValue="artist-2" id="answer-2" />
-            <label className="artist__name" htmlFor="answer-2">
-              <img className="artist__picture" src="img/placeholder.jpg" alt="Пелагея" />
-              Краснознаменная дивизия имени моей бабушки
-            </label>
-          </div>
-          <div className="artist">
-            <input className="artist__input visually-hidden" type="radio" name="answer" defaultValue="artist-3" id="answer-3" />
-            <label className="artist__name" htmlFor="answer-3">
-              <img className="artist__picture" src="img/placeholder.jpg" alt="Пелагея" />
-              Lorde
-            </label>
-          </div>
+          {question.answers.map((answer, i) => (
+            <div key={`answer-${i}-key`} className="artist">
+              <input
+                className="artist__input visually-hidden"
+                type="radio"
+                name="answer"
+                defaultValue={answer.artist}
+                id={`answer-${i}`}
+                onChange={() => (onAnswer(question, event.target.value))}
+              />
+              <label className="artist__name" htmlFor={`answer-${i}`}>
+                <img className="artist__picture" src={answer.picture} alt={answer.artist} />
+                {answer.artist}
+              </label>
+            </div>
+          ))}
         </form>
       </section>
     </section>
   );
+};
+
+
+GameArtist.propTypes = {
+  onAnswer: PropTypes.func.isRequired,
+  question: PropTypes.shape({
+    type: PropTypes.string.isRequired,
+    song: PropTypes.shape({
+      artist: PropTypes.string.isRequired,
+      src: PropTypes.string.isRequired
+    }).isRequired,
+    answers: PropTypes.arrayOf(PropTypes.shape({
+      picture: PropTypes.string.isRequired,
+      artist: PropTypes.string.isRequired,
+    })).isRequired
+  }).isRequired
 };
 
 export default GameArtist;
