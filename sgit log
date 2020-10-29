@@ -1,0 +1,104 @@
+[33mcommit a5e196e06a39cf29fe4f3b1897c62e489e4841eb[m[33m ([m[1;36mHEAD -> [m[1;32mmodule3-task1[m[33m, [m[1;31morigin/module3-task1[m[33m)[m
+Author: eggofevil <eggofevil@gmail.com>
+Date:   Tue Oct 13 22:23:52 2020 +0300
+
+    Поправлаяем React.PureComponent на React.Component в GameGenre, так как с PureComponent почему-то не работает...
+
+[33mcommit de59388f68308f1409545c9dea4e93dbb071065e[m
+Author: eggofevil <eggofevil@gmail.com>
+Date:   Tue Oct 13 22:01:39 2020 +0300
+
+    Активируем кнопку перехода с Welcome на Game
+
+[33mcommit b6b1b5fe70df01019167dc6ba8c78174c2ed9211[m
+Author: eggofevil <eggofevil@gmail.com>
+Date:   Tue Oct 13 21:49:26 2020 +0300
+
+    Переписываем компонент GameArtist в функциональный в связи с отсутствием state
+
+[33mcommit aea1160db14121d386313881b26ff02489360378[m
+Author: eggofevil <eggofevil@gmail.com>
+Date:   Tue Oct 13 21:42:51 2020 +0300
+
+    Вроде, работают оба экрана игры
+
+[33mcommit 069fb14a2027fbba46f1d73bc352a25b09b27e1b[m
+Author: eggofevil <eggofevil@gmail.com>
+Date:   Tue Oct 13 15:54:11 2020 +0300
+
+    завершили game-genre, начали game-artist
+
+[33mcommit 2ccfefe1719cb1d4bb8aae499e8188e29afdf7f4[m
+Author: eggofevil <eggofevil@gmail.com>
+Date:   Mon Oct 12 16:35:58 2020 +0300
+
+    Вроде, заставили работать game-genre теперь пытаемся заставить работать game-artist
+
+[33mcommit 60c9443d989ccb4ccf7eb3c5dbb376b8d683d2be[m
+Author: eggofevil <eggofevil@gmail.com>
+Date:   Sat Oct 10 23:23:03 2020 +0300
+
+    Добились маленького успеха
+
+[33mcommit c4e8d20b7d16b9455dd93a40192e5427bb797bab[m
+Author: eggofevil <eggofevil@gmail.com>
+Date:   Sat Oct 10 22:09:03 2020 +0300
+
+    Пытаемся заставить работать экран game-genre
+
+[33mcommit f235a16a1645a62a4fe4a616ce87db9e8585594f[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;31macademy/master[m[33m, [m[1;32mmaster[m[33m)[m
+Merge: d9a6881 8c5b8aa
+Author: Keks <keksobot@users.noreply.github.com>
+Date:   Mon Oct 5 09:13:00 2020 +0300
+
+    Merge pull request #3 from eggofevil/module2-task1
+
+[33mcommit 8c5b8aa9c6542ec57e618803dd41318098012522[m[33m ([m[1;31morigin/module2-task1[m[33m, [m[1;32mmodule2-task1[m[33m)[m
+Author: eggofevil <eggofevil@gmail.com>
+Date:   Sat Oct 3 21:04:07 2020 +0300
+
+    6. Учебный проект: маршрут по тайным тропам
+
+[33mcommit d9a6881f9eee55598c81d74d2680165fc9b18401[m
+Merge: 9928052 0dce950
+Author: Keks <keksobot@users.noreply.github.com>
+Date:   Sat Oct 3 09:23:05 2020 +0300
+
+    Merge pull request #2 from eggofevil/module1-task2
+
+[33mcommit 0dce9505dab7a6f8781037a11b09fe08fa18d2ad[m[33m ([m[1;31morigin/module1-task2[m[33m, [m[1;32mmodule1-task2[m[33m)[m
+Author: eggofevil <eggofevil@gmail.com>
+Date:   Thu Oct 1 23:02:04 2020 +0300
+
+    Переименовываем компонент Greeting в Welcome в соответствии с ТЗ
+
+[33mcommit 0afb750b5f38860646a515f965a1b2462ead4f07[m
+Author: eggofevil <eggofevil@gmail.com>
+Date:   Wed Sep 30 00:15:03 2020 +0300
+
+    4. Учебный проект: начинаем программировать
+
+[33mcommit 1340e19ea708660224637f76b2cf131e01292a6a[m
+Author: eggofevil <eggofevil@gmail.com>
+Date:   Tue Sep 29 21:10:28 2020 +0300
+
+    Добавляем eslint-plugin-json в конфигурацию .eslintrc.yml
+
+[33mcommit 9928052867cc21f49efea78ffaabb99170d89535[m[33m ([m[1;32mmodule1-task1[m[33m)[m
+Merge: 63df3fb 3cb9624
+Author: Keks <keksobot@users.noreply.github.com>
+Date:   Tue Sep 29 18:17:32 2020 +0300
+
+    Merge pull request #1 from eggofevil/module1-task1
+
+[33mcommit 3cb9624562507cea6fdd951fdc943f5235827b15[m[33m ([m[1;31morigin/module1-task1[m[33m)[m
+Author: eggofevil <eggofevil@gmail.com>
+Date:   Tue Sep 29 18:02:54 2020 +0300
+
+    Учебный проект: вооружён, значит опасен
+
+[33mcommit 63df3fb09d6c4956e36a5d4869d90f0be73e3fe6[m
+Author: Keks <keks@htmlacademy.ru>
+Date:   Mon Sep 28 21:45:50 2020 +0300
+
+    :hatching_chick:

@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Player from '../player/player';
 
 const GameArtist = ({question, onAnswer}) => {
   return (
@@ -22,10 +23,7 @@ const GameArtist = ({question, onAnswer}) => {
         <h2 className="game__title">Кто исполняет эту песню?</h2>
         <div className="game__track">
           <div className="track">
-            <button className="track__button track__button--play" type="button" />
-            <div className="track__status">
-              <audio src={question.song.src}/>
-            </div>
+            <Player />
           </div>
         </div>
         <form className="game__artist">

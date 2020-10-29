@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Player from '../player/player';
 
 class GameGenre extends React.Component { // почему не могу использовать PureComponent???
   constructor(props) {
@@ -47,10 +48,7 @@ class GameGenre extends React.Component { // почему не могу испо
             {this.props.question.answers.map((answer, i) => {
               return (
                 <div key={`answer-${i}-key`} className="track">
-                  <button className="track__button track__button--play" type="button" />
-                  <div className="track__status">
-                    <audio src={`${answer.src}`} />
-                  </div>
+                  <Player />
                   <div className="game__answer">
                     <input
                       className="game__input visually-hidden"
