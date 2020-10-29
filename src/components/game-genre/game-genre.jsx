@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Player from '../player/player';
+import WelcomeScreenLink from '../welcome-screen-link/welcome-screen-link';
 
 class GameGenre extends React.Component { // почему не могу использовать PureComponent???
   constructor(props) {
@@ -29,10 +30,7 @@ class GameGenre extends React.Component { // почему не могу испо
     return (
       <section className="game game--genre">
         <header className="game__header">
-          <a className="game__back" href="#">
-            <span className="visually-hidden">Сыграть ещё раз</span>
-            <img className="game__logo" src="img/melody-logo-ginger.png" alt="Угадай мелодию" />
-          </a>
+          <WelcomeScreenLink />
           <svg xmlns="http://www.w3.org/2000/svg" className="timer" viewBox="0 0 780 780">
             <circle className="timer__line" cx={390} cy={390} r={370} style={{filter: `url(#blur)`, transform: `rotate(-90deg) scaleY(-1)`, transformOrigin: `center`}} />
           </svg>
