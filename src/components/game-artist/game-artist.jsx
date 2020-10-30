@@ -4,6 +4,7 @@ import Player from '../player/player';
 import WelcomeScreenLink from '../welcome-screen-link/welcome-screen-link';
 
 const GameArtist = ({question, onAnswer}) => {
+  console.log(Player);
   return (
     <section className="game game--artist">
       <header className="game__header">
@@ -21,7 +22,7 @@ const GameArtist = ({question, onAnswer}) => {
         <h2 className="game__title">Кто исполняет эту песню?</h2>
         <div className="game__track">
           <div className="track">
-            <Player />
+            <Player isPlaying src={question.song.src} />
           </div>
         </div>
         <form className="game__artist">

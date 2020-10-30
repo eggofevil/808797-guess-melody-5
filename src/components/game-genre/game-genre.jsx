@@ -7,9 +7,11 @@ class GameGenre extends React.Component { // почему не могу испо
   constructor(props) {
     super(props);
     this.state = {
-      userAnswers: [false, false, false, false]
+      userAnswers: [false, false, false, false],
+      activePlayer: 0
     };
     this._handleSubmit = this._handleSubmit.bind(this);
+    this._handlePlayButtonClick = this._handlePlayButtonClick.bind(this);
     // this.handleChange = this.handleChange.bind(this); // Почечу при записи обработчика в JSX в виде {()=>(handleSomething())} не требуется bind???
   }
 
@@ -26,7 +28,16 @@ class GameGenre extends React.Component { // почему не могу испо
     this.props.onAnswer(this.props.question, this.state.userAnswers);
   }
 
+  _handlePlayButtonClick(id) {
+    if (id !== this.state.activePlayer) {
+      this.setState({activePlayer: id});
+    } else {
+      this.setState({activePlayer: null});
+    }
+  }
+
   render() {
+    let {answers, genre} = this.props.question;
     return (
       <section className="game game--genre">
         <header className="game__header">
@@ -41,12 +52,17 @@ class GameGenre extends React.Component { // почему не могу испо
           </div>
         </header>
         <section className="game__screen">
-          <h2 className="game__title">Выберите {this.props.question.genre} треки</h2>
+          <h2 className="game__title">Выберите {genre} треки</h2>
           <form className="game__tracks" onSubmit={this._handleSubmit}>
-            {this.props.question.answers.map((answer, i) => {
+            {answers.map((answer, i) => {
               return (
                 <div key={`answer-${i}-key`} className="track">
-                  <Player />
+                  <Player
+                    id={i}
+                    isPlaying={i === this.state.activePlayer ? true : null}
+                    handlePlayButtonClick={this._handlePlayButtonClick}
+                    src={answer.src}
+                  />
                   <div className="game__answer">
                     <input
                       className="game__input visually-hidden"
