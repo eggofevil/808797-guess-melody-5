@@ -1,17 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Player from '../player/player';
 import WelcomeScreenLink from '../welcome-screen-link/welcome-screen-link';
+
+import questionPropTypes from './genre-question-proptypes';
 
 class GameGenre extends React.Component { // почему не могу использовать PureComponent???
   constructor(props) {
     super(props);
     this.state = {
       userAnswers: [false, false, false, false],
-      activePlayer: 0
     };
     this._handleSubmit = this._handleSubmit.bind(this);
-    this._handlePlayButtonClick = this._handlePlayButtonClick.bind(this);
     // this.handleChange = this.handleChange.bind(this); // Почечу при записи обработчика в JSX в виде {()=>(handleSomething())} не требуется bind???
   }
 
@@ -26,14 +25,6 @@ class GameGenre extends React.Component { // почему не могу испо
   _handleSubmit(evt) {
     evt.preventDefault();
     this.props.onAnswer(this.props.question, this.state.userAnswers);
-  }
-
-  _handlePlayButtonClick(id) {
-    if (id !== this.state.activePlayer) {
-      this.setState({activePlayer: id});
-    } else {
-      this.setState({activePlayer: null});
-    }
   }
 
   render() {
@@ -57,12 +48,7 @@ class GameGenre extends React.Component { // почему не могу испо
             {answers.map((answer, i) => {
               return (
                 <div key={`answer-${i}-key`} className="track">
-                  <Player
-                    id={i}
-                    isPlaying={i === this.state.activePlayer ? true : null}
-                    handlePlayButtonClick={this._handlePlayButtonClick}
-                    src={answer.src}
-                  />
+                  {this.props.renderPlayer(answer.src, i)}
                   <div className="game__answer">
                     <input
                       className="game__input visually-hidden"
@@ -87,15 +73,9 @@ class GameGenre extends React.Component { // почему не могу испо
 }
 
 GameGenre.propTypes = {
+  question: questionPropTypes,
+  renderPlayer: PropTypes.func.isRequired,
   onAnswer: PropTypes.func.isRequired,
-  question: PropTypes.shape({
-    type: PropTypes.string.isRequired,
-    genre: PropTypes.string.isRequired,
-    answers: PropTypes.arrayOf(PropTypes.shape({
-      src: PropTypes.string.isRequired,
-      genre: PropTypes.string.isRequired,
-    })).isRequired
-  }).isRequired
 };
 
 export default GameGenre;

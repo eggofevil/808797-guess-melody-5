@@ -8,6 +8,7 @@ class Player extends React.PureComponent {
     this.state = {
       isLoading: true,
     };
+    this._handleClick = this._handleClick.bind(this);
   }
 
   componentDidMount() {
@@ -33,6 +34,10 @@ class Player extends React.PureComponent {
     audio.oncanplaythrough = null;
   }
 
+  _handleClick() {
+    this.props.handlePlayButtonClick(this.props.id);
+  }
+
   render() {
     let {isLoading} = this.state;
     let {isPlaying} = this.props;
@@ -40,7 +45,7 @@ class Player extends React.PureComponent {
       <React.Fragment>
         <button
           className={`track__button track__button--${isPlaying ? `play` : `pause`}`}
-          onClick={this.props.onClick}
+          onClick={this._handleClick}
           type="button"
           disabled = {isLoading}
         />
@@ -54,7 +59,8 @@ class Player extends React.PureComponent {
 
 Player.propTypes = {
   isPlaying: PropTypes.bool,
-  onClick: PropTypes.func.isRequired,
+  id: PropTypes.number.isRequired,
+  handlePlayButtonClick: PropTypes.func.isRequired,
   src: PropTypes.string.isRequired
 };
 

@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Player from '../player/player';
 import WelcomeScreenLink from '../welcome-screen-link/welcome-screen-link';
 
-const GameArtist = ({question, onAnswer}) => {
-  console.log(Player);
+import questionPropTypes from './artist-question-proptypes';
+
+const GameArtist = ({question, onAnswer, renderPlayer}) => {
   return (
     <section className="game game--artist">
       <header className="game__header">
@@ -22,7 +22,7 @@ const GameArtist = ({question, onAnswer}) => {
         <h2 className="game__title">Кто исполняет эту песню?</h2>
         <div className="game__track">
           <div className="track">
-            <Player isPlaying src={question.song.src} />
+            {renderPlayer(question.song.src, 0)}
           </div>
         </div>
         <form className="game__artist">
@@ -50,18 +50,9 @@ const GameArtist = ({question, onAnswer}) => {
 
 
 GameArtist.propTypes = {
+  renderPlayer: PropTypes.func.isRequired,
   onAnswer: PropTypes.func.isRequired,
-  question: PropTypes.shape({
-    type: PropTypes.string.isRequired,
-    song: PropTypes.shape({
-      artist: PropTypes.string.isRequired,
-      src: PropTypes.string.isRequired
-    }).isRequired,
-    answers: PropTypes.arrayOf(PropTypes.shape({
-      picture: PropTypes.string.isRequired,
-      artist: PropTypes.string.isRequired,
-    })).isRequired
-  }).isRequired
+  question: questionPropTypes
 };
 
 export default GameArtist;
