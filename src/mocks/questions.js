@@ -6,19 +6,19 @@ export default [
     genre: `rock`,
     answers: [
       {
-        src: `https://upload.wikimedia.org/wikipedia/commons/4/4e/BWV_543-fugue.ogg`,
+        src: `./music/Ac_Dc_-_TNT.mp3`,
         genre: `rock`
       },
       {
-        src: `https://upload.wikimedia.org/wikipedia/commons/4/4e/BWV_543-fugue.ogg`,
+        src: `./music/Robert_Johnson_-_Walking_Blues.mp3`,
         genre: `blues`
       },
       {
-        src: `https://upload.wikimedia.org/wikipedia/commons/4/4e/BWV_543-fugue.ogg`,
+        src: `./music/John_Lewis_-_I_Remember_Clifford.mp3`,
         genre: `jazz`
       },
       {
-        src: `https://upload.wikimedia.org/wikipedia/commons/4/4e/BWV_543-fugue.ogg`,
+        src: `./music/Scorpions_-_Pictured_Life.mp3`,
         genre: `rock`
       }
     ]
@@ -26,8 +26,8 @@ export default [
   {
     type: `artist`,
     song: {
-      artist: `Jim Beam`,
-      src: `https://upload.wikimedia.org/wikipedia/commons/4/4e/BWV_543-fugue.ogg`
+      artist: `John Lewis`,
+      src: `./music/John_Lewis_-_I_Remember_Clifford.mp3`
     },
     answers: [
       {
@@ -40,7 +40,7 @@ export default [
       },
       {
         picture: `${AVATAR_URL}/${Math.random()}`,
-        artist: `Jim Beam`
+        artist: `John Lewis`
       }
     ]
   }

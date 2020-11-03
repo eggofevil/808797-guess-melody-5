@@ -7,6 +7,9 @@ import Game from '../game/game';
 import Result from '../result/result';
 import GameOver from '../game-over/game-over';
 
+import genreQuestionPropTypes from '../game-genre/genre-question-proptypes';
+import artistQuestionPropTypes from '../game-artist/artist-question-proptypes';
+
 const App = ({attempts, questions}) => {
   return (
     <BrowserRouter>
@@ -33,7 +36,7 @@ const App = ({attempts, questions}) => {
 
 App.propTypes = {
   attempts: PropTypes.number.isRequired,
-  questions: PropTypes.array.isRequired
+  questions: PropTypes.arrayOf(PropTypes.oneOfType([genreQuestionPropTypes, artistQuestionPropTypes])).isRequired
 };
 
 export default App;

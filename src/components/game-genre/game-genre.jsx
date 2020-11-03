@@ -1,11 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import WelcomeScreenLink from '../welcome-screen-link/welcome-screen-link';
+
+import questionPropTypes from './genre-question-proptypes';
 
 class GameGenre extends React.Component { // почему не могу использовать PureComponent???
   constructor(props) {
     super(props);
     this.state = {
-      userAnswers: [false, false, false, false]
+      userAnswers: [false, false, false, false],
     };
     this._handleSubmit = this._handleSubmit.bind(this);
     // this.handleChange = this.handleChange.bind(this); // Почечу при записи обработчика в JSX в виде {()=>(handleSomething())} не требуется bind???
@@ -25,13 +28,11 @@ class GameGenre extends React.Component { // почему не могу испо
   }
 
   render() {
+    let {answers, genre} = this.props.question;
     return (
       <section className="game game--genre">
         <header className="game__header">
-          <a className="game__back" href="#">
-            <span className="visually-hidden">Сыграть ещё раз</span>
-            <img className="game__logo" src="img/melody-logo-ginger.png" alt="Угадай мелодию" />
-          </a>
+          <WelcomeScreenLink />
           <svg xmlns="http://www.w3.org/2000/svg" className="timer" viewBox="0 0 780 780">
             <circle className="timer__line" cx={390} cy={390} r={370} style={{filter: `url(#blur)`, transform: `rotate(-90deg) scaleY(-1)`, transformOrigin: `center`}} />
           </svg>
@@ -42,15 +43,12 @@ class GameGenre extends React.Component { // почему не могу испо
           </div>
         </header>
         <section className="game__screen">
-          <h2 className="game__title">Выберите {this.props.question.genre} треки</h2>
+          <h2 className="game__title">Выберите {genre} треки</h2>
           <form className="game__tracks" onSubmit={this._handleSubmit}>
-            {this.props.question.answers.map((answer, i) => {
+            {answers.map((answer, i) => {
               return (
                 <div key={`answer-${i}-key`} className="track">
-                  <button className="track__button track__button--play" type="button" />
-                  <div className="track__status">
-                    <audio src={`${answer.src}`} />
-                  </div>
+                  {this.props.renderPlayer(answer.src, i)}
                   <div className="game__answer">
                     <input
                       className="game__input visually-hidden"
@@ -75,15 +73,9 @@ class GameGenre extends React.Component { // почему не могу испо
 }
 
 GameGenre.propTypes = {
+  question: questionPropTypes,
+  renderPlayer: PropTypes.func.isRequired,
   onAnswer: PropTypes.func.isRequired,
-  question: PropTypes.shape({
-    type: PropTypes.string.isRequired,
-    genre: PropTypes.string.isRequired,
-    answers: PropTypes.arrayOf(PropTypes.shape({
-      src: PropTypes.string.isRequired,
-      genre: PropTypes.string.isRequired,
-    })).isRequired
-  }).isRequired
 };
 
 export default GameGenre;

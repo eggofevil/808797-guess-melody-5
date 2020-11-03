@@ -3,6 +3,13 @@ import PropTypes from 'prop-types';
 import {Redirect} from 'react-router-dom';
 import GameGenre from '../game-genre/game-genre';
 import GameArtist from '../game-artist/game-artist';
+import withPlayers from '../hocks/with-players/with-players';
+
+import genreQuestionPropTypes from '../game-genre/genre-question-proptypes';
+import artistQuestionPropTypes from '../game-artist/artist-question-proptypes';
+
+const WrappedGameGenre = withPlayers(GameGenre);
+const WrappedGameArtist = withPlayers(GameArtist);
 
 class Game extends React.PureComponent {
   constructor(props) {
@@ -37,16 +44,16 @@ class Game extends React.PureComponent {
     }
     switch (question.type) {
     case `genre`:
-      return <GameGenre question={question} onAnswer={this._onAnswer} />;
+      return <WrappedGameGenre question={question} onAnswer={this._onAnswer} />;
     case `artist`:
-      return <GameArtist question={question} onAnswer={this._onAnswer} />;
+      return <WrappedGameArtist question={question} onAnswer={this._onAnswer} />;
     }
     return <Redirect to="/" />;
   }
 }
 
 Game.propTypes = {
-  questions: PropTypes.array.isRequired
+  questions: PropTypes.arrayOf(PropTypes.oneOfType([genreQuestionPropTypes, artistQuestionPropTypes])).isRequired
 };
 
 export default Game;
