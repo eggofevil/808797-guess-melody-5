@@ -1,9 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {Redirect} from 'react-router-dom';
+import {connect} from 'react-redux';
+
+import {incrementStep, incrementMistakes, resetGame} from '../../store/actions.js';
 import GameGenre from '../game-genre/game-genre';
 import GameArtist from '../game-artist/game-artist';
 import withPlayers from '../hocks/with-players/with-players';
+
 
 import genreQuestionPropTypes from '../game-genre/genre-question-proptypes';
 import artistQuestionPropTypes from '../game-artist/artist-question-proptypes';
