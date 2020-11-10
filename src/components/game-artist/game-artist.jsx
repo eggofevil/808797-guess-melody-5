@@ -34,7 +34,7 @@ const GameArtist = ({question, onAnswer, renderPlayer}) => {
                 name="answer"
                 defaultValue={answer.artist}
                 id={`answer-${i}`}
-                onChange={() => (onAnswer(question, event.target.value))}
+                onChange={() => (onAnswer(event.target.value))}
               />
               <label className="artist__name" htmlFor={`answer-${i}`}>
                 <img className="artist__picture" src={answer.picture} alt={answer.artist} />

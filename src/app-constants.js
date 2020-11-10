@@ -1,6 +1,7 @@
-const AppConstants = {
-  GAME_STEP_SIZE: 1,
-  MISTAKES_STEP_SIZE: 1
-};
+const GAME_STEP_SIZE = 1;
+const MISTAKES_STEP_SIZE = 1;
 
-export {AppConstants};
+export {
+  GAME_STEP_SIZE,
+  MISTAKES_STEP_SIZE
+};

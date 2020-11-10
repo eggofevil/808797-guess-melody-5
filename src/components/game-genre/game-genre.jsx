@@ -4,14 +4,13 @@ import WelcomeScreenLink from '../welcome-screen-link/welcome-screen-link';
 
 import questionPropTypes from './genre-question-proptypes';
 
-class GameGenre extends React.Component { // почему не могу использовать PureComponent???
+class GameGenre extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       userAnswers: [false, false, false, false],
     };
     this._handleSubmit = this._handleSubmit.bind(this);
-    // this.handleChange = this.handleChange.bind(this); // Почечу при записи обработчика в JSX в виде {()=>(handleSomething())} не требуется bind???
   }
 
   _handleChange(i) {
@@ -24,7 +23,7 @@ class GameGenre extends React.Component { // почему не могу испо
 
   _handleSubmit(evt) {
     evt.preventDefault();
-    this.props.onAnswer(this.props.question, this.state.userAnswers);
+    this.props.onAnswer(this.state.userAnswers);
   }
 
   render() {
