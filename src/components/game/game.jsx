@@ -9,13 +9,12 @@ import GameArtist from '../game-artist/game-artist';
 import Mistakes from '../mistakes/mistakes';
 import withPlayers from '../hocks/with-players/with-players';
 
-
 import genreQuestionPropTypes from '../game-genre/genre-question-proptypes';
 import artistQuestionPropTypes from '../game-artist/artist-question-proptypes';
 
 const WrappedGameGenre = withPlayers(GameGenre);
 const WrappedGameArtist = withPlayers(GameArtist);
-const mapStateToProps = (state) => ({step: state.step, mistakes: state.mistakes});
+const mapStateToProps = (state) => ({step: state.step, mistakes: state.mistakes, questions: state.questions});
 
 const mapDispatchToProps = (dispatch) => ({
   incrementStep() {
@@ -29,9 +28,9 @@ const mapDispatchToProps = (dispatch) => ({
   }
 });
 
-const Game = ({questions, step, incrementStep, incrementMistakes, resetGame, mistakes}) => {
+const Game = ({questions, step, incrementStep, incrementMistakes, resetGame, mistakes, attempts}) => {
   const question = questions[step];
-  if (step >= questions.length || !question || mistakes > 2) {
+  if (step >= questions.length || !question || mistakes === attempts) {
     resetGame();
     return <Redirect to="/" />;
   }
@@ -55,6 +54,7 @@ const Game = ({questions, step, incrementStep, incrementMistakes, resetGame, mis
 };
 
 Game.propTypes = {
+  attempts: PropTypes.number.isRequired,
   mistakes: PropTypes.number.isRequired,
   questions: PropTypes.arrayOf(PropTypes.oneOfType([genreQuestionPropTypes, artistQuestionPropTypes])).isRequired,
   step: PropTypes.number.isRequired,
