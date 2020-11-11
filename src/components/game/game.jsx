@@ -6,6 +6,7 @@ import {connect} from 'react-redux';
 import * as actions from '../../store/actions.js';
 import GameGenre from '../game-genre/game-genre';
 import GameArtist from '../game-artist/game-artist';
+import Mistakes from '../mistakes/mistakes';
 import withPlayers from '../hocks/with-players/with-players';
 
 
@@ -14,7 +15,7 @@ import artistQuestionPropTypes from '../game-artist/artist-question-proptypes';
 
 const WrappedGameGenre = withPlayers(GameGenre);
 const WrappedGameArtist = withPlayers(GameArtist);
-const mapStateToProps = (state) => ({step: state.step});
+const mapStateToProps = (state) => ({step: state.step, mistakes: state.mistakes});
 
 const mapDispatchToProps = (dispatch) => ({
   incrementStep() {
@@ -28,9 +29,9 @@ const mapDispatchToProps = (dispatch) => ({
   }
 });
 
-const Game = ({questions, step, incrementStep, incrementMistakes, resetGame}) => {
+const Game = ({questions, step, incrementStep, incrementMistakes, resetGame, mistakes}) => {
   const question = questions[step];
-  if (step >= questions.length || !question) {
+  if (step >= questions.length || !question || mistakes > 2) {
     resetGame();
     return <Redirect to="/" />;
   }
@@ -46,10 +47,15 @@ const Game = ({questions, step, incrementStep, incrementMistakes, resetGame}) =>
   };
 
   let GameType = question.type === `genre` ? WrappedGameGenre : WrappedGameArtist;
-  return <GameType question={question} onAnswer={onAnswer} />;
+  return (
+    <GameType question={question} onAnswer={onAnswer}>
+      <Mistakes count = {mistakes}/>
+    </GameType>
+  );
 };
 
 Game.propTypes = {
+  mistakes: PropTypes.number.isRequired,
   questions: PropTypes.arrayOf(PropTypes.oneOfType([genreQuestionPropTypes, artistQuestionPropTypes])).isRequired,
   step: PropTypes.number.isRequired,
   incrementStep: PropTypes.func.isRequired,

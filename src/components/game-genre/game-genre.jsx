@@ -28,6 +28,7 @@ class GameGenre extends React.Component {
 
   render() {
     let {answers, genre} = this.props.question;
+    let {children} = this.props;
     return (
       <section className="game game--genre">
         <header className="game__header">
@@ -35,11 +36,7 @@ class GameGenre extends React.Component {
           <svg xmlns="http://www.w3.org/2000/svg" className="timer" viewBox="0 0 780 780">
             <circle className="timer__line" cx={390} cy={390} r={370} style={{filter: `url(#blur)`, transform: `rotate(-90deg) scaleY(-1)`, transformOrigin: `center`}} />
           </svg>
-          <div className="game__mistakes">
-            <div className="wrong" />
-            <div className="wrong" />
-            <div className="wrong" />
-          </div>
+          {children}
         </header>
         <section className="game__screen">
           <h2 className="game__title">Выберите {genre} треки</h2>
@@ -73,6 +70,7 @@ class GameGenre extends React.Component {
 
 GameGenre.propTypes = {
   question: questionPropTypes,
+  children: PropTypes.element.isRequired,
   renderPlayer: PropTypes.func.isRequired,
   onAnswer: PropTypes.func.isRequired,
 };

@@ -4,7 +4,7 @@ import WelcomeScreenLink from '../welcome-screen-link/welcome-screen-link';
 
 import questionPropTypes from './artist-question-proptypes';
 
-const GameArtist = ({question, onAnswer, renderPlayer}) => {
+const GameArtist = ({question, onAnswer, renderPlayer, children}) => {
   return (
     <section className="game game--artist">
       <header className="game__header">
@@ -12,11 +12,7 @@ const GameArtist = ({question, onAnswer, renderPlayer}) => {
         <svg xmlns="http://www.w3.org/2000/svg" className="timer" viewBox="0 0 780 780">
           <circle className="timer__line" cx={390} cy={390} r={370} style={{filter: `url(#blur)`, transform: `rotate(-90deg) scaleY(-1)`, transformOrigin: `center`}} />
         </svg>
-        <div className="game__mistakes">
-          <div className="wrong" />
-          <div className="wrong" />
-          <div className="wrong" />
-        </div>
+        {children}
       </header>
       <section className="game__screen">
         <h2 className="game__title">Кто исполняет эту песню?</h2>
@@ -52,7 +48,8 @@ const GameArtist = ({question, onAnswer, renderPlayer}) => {
 GameArtist.propTypes = {
   renderPlayer: PropTypes.func.isRequired,
   onAnswer: PropTypes.func.isRequired,
-  question: questionPropTypes
+  question: questionPropTypes,
+  children: PropTypes.element.isRequired
 };
 
 export default GameArtist;
