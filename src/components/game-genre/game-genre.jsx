@@ -4,14 +4,13 @@ import WelcomeScreenLink from '../welcome-screen-link/welcome-screen-link';
 
 import questionPropTypes from './genre-question-proptypes';
 
-class GameGenre extends React.Component { // почему не могу использовать PureComponent???
+class GameGenre extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       userAnswers: [false, false, false, false],
     };
     this._handleSubmit = this._handleSubmit.bind(this);
-    // this.handleChange = this.handleChange.bind(this); // Почечу при записи обработчика в JSX в виде {()=>(handleSomething())} не требуется bind???
   }
 
   _handleChange(i) {
@@ -24,11 +23,12 @@ class GameGenre extends React.Component { // почему не могу испо
 
   _handleSubmit(evt) {
     evt.preventDefault();
-    this.props.onAnswer(this.props.question, this.state.userAnswers);
+    this.props.onAnswer(this.state.userAnswers);
   }
 
   render() {
     let {answers, genre} = this.props.question;
+    let {children} = this.props;
     return (
       <section className="game game--genre">
         <header className="game__header">
@@ -36,11 +36,7 @@ class GameGenre extends React.Component { // почему не могу испо
           <svg xmlns="http://www.w3.org/2000/svg" className="timer" viewBox="0 0 780 780">
             <circle className="timer__line" cx={390} cy={390} r={370} style={{filter: `url(#blur)`, transform: `rotate(-90deg) scaleY(-1)`, transformOrigin: `center`}} />
           </svg>
-          <div className="game__mistakes">
-            <div className="wrong" />
-            <div className="wrong" />
-            <div className="wrong" />
-          </div>
+          {children}
         </header>
         <section className="game__screen">
           <h2 className="game__title">Выберите {genre} треки</h2>
@@ -74,6 +70,7 @@ class GameGenre extends React.Component { // почему не могу испо
 
 GameGenre.propTypes = {
   question: questionPropTypes,
+  children: PropTypes.element.isRequired,
   renderPlayer: PropTypes.func.isRequired,
   onAnswer: PropTypes.func.isRequired,
 };

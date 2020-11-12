@@ -1,8 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {Redirect} from 'react-router-dom';
+import {connect} from 'react-redux';
+
+import * as actions from '../../store/actions.js';
 import GameGenre from '../game-genre/game-genre';
 import GameArtist from '../game-artist/game-artist';
+import Mistakes from '../mistakes/mistakes';
 import withPlayers from '../hocks/with-players/with-players';
 
 import genreQuestionPropTypes from '../game-genre/genre-question-proptypes';
@@ -10,50 +14,54 @@ import artistQuestionPropTypes from '../game-artist/artist-question-proptypes';
 
 const WrappedGameGenre = withPlayers(GameGenre);
 const WrappedGameArtist = withPlayers(GameArtist);
+const mapStateToProps = (state) => ({step: state.step, mistakes: state.mistakes, questions: state.questions});
 
-class Game extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      step: 0,
-      errorsCount: 0
-    };
-    this._onAnswer = this._onAnswer.bind(this);
+const mapDispatchToProps = (dispatch) => ({
+  incrementStep() {
+    dispatch(actions.incrementStep);
+  },
+  incrementMistakes() {
+    dispatch(actions.incrementMistakes);
+  },
+  resetGame() {
+    dispatch(actions.resetGame);
   }
+});
 
-  _onAnswer(currentQuestion, userAnswers) { // Почему ниже, в пропсы компонента наименование этой функции спускается без нижнего подчеркивания???
-    let result;
-    if (Array.isArray(userAnswers)) {
-      result = currentQuestion.answers.every((answer, i) => ((answer.genre === currentQuestion.genre) === userAnswers[i]));
-    } else {
-      result = currentQuestion.song.artist === userAnswers;
-    }
-    this.setState((currentState) => ({
-      step: currentState.step + 1,
-      errorsCount: currentState.errorsCount + !result
-    }));
-  }
-
-  render() {
-    const {step} = this.state;
-    const {questions} = this.props;
-    const question = questions[step];
-
-    if (step >= questions.length || !questions) {
-      return <Redirect to='/' />;
-    }
-    switch (question.type) {
-    case `genre`:
-      return <WrappedGameGenre question={question} onAnswer={this._onAnswer} />;
-    case `artist`:
-      return <WrappedGameArtist question={question} onAnswer={this._onAnswer} />;
-    }
+const Game = ({questions, step, incrementStep, incrementMistakes, resetGame, mistakes, attempts}) => {
+  const question = questions[step];
+  if (step >= questions.length || !question || mistakes === attempts) {
+    resetGame();
     return <Redirect to="/" />;
   }
-}
 
-Game.propTypes = {
-  questions: PropTypes.arrayOf(PropTypes.oneOfType([genreQuestionPropTypes, artistQuestionPropTypes])).isRequired
+  const onAnswer = (userAnswers) => {
+    incrementStep();
+    let result = question.type === `genre` ?
+      question.answers.every((answer, i) => ((answer.genre === question.genre) === userAnswers[i])) :
+      question.song.artist === userAnswers;
+    if (!result) {
+      incrementMistakes();
+    }
+  };
+
+  let GameType = question.type === `genre` ? WrappedGameGenre : WrappedGameArtist;
+  return (
+    <GameType question={question} onAnswer={onAnswer}>
+      <Mistakes count = {mistakes}/>
+    </GameType>
+  );
 };
 
-export default Game;
+Game.propTypes = {
+  attempts: PropTypes.number.isRequired,
+  mistakes: PropTypes.number.isRequired,
+  questions: PropTypes.arrayOf(PropTypes.oneOfType([genreQuestionPropTypes, artistQuestionPropTypes])).isRequired,
+  step: PropTypes.number.isRequired,
+  incrementStep: PropTypes.func.isRequired,
+  incrementMistakes: PropTypes.func.isRequired,
+  resetGame: PropTypes.func.isRequired
+};
+
+export {Game};
+export default connect(mapStateToProps, mapDispatchToProps)(Game);
